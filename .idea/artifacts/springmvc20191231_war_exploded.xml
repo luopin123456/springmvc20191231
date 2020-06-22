@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="springmvc20191231:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/springmvc20191231_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="springmvc20191231/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="springmvc20191231" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Spring-4.3.18.RELEASE" />
+          <element id="library" level="project" name="Spring MVC-4.3.18.RELEASE" />
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="library" level="project" name="jackson-annotations-2.9.9" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

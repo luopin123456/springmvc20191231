@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!--上下文参数：全局参数：可以被所有的Servlet获取到-->
+    <context-param>
+        <!--contextConfigLocation:参数名:-->
+        <param-name>contextConfigLocation</param-name>
+        <!--spring 全局配置文件的路径-->
+        <!--<param-value>/applicationContext.xml</param-value>-->
+        <!--将文件放在resources目录中：类路径的根目录-->
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <!--监听器
+    自动的初始化上下文对象：ApplicationContext
+    -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--中文编码过滤器，要放在所有过滤器前面-->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--前端控制器：总的servlet,分发servlet -->
+
+    <!--
+    前端控制器：dispatcher 默认会加载: WEB-INF/前端控制器名字-servlet.xml文件
+    如果要重新指定mvc 的配置文件：通过指定init-param: contextConfigLocation，指定 mvc文件的路径
+    -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--DispatcherServlet指定要加载配置文件的路径-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <!--默认情况下Servlet什么时间实例化？
+        1、第一次请求时 servlet 实例化 （创建对象）
+        2、配置  load-on-startup 属性，启动时（加载）实例化    ，数字越小，优先级越高
+        -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <!--/:匹配所有的请求，不包括：.jsp-->
+        <!--/*:匹配所有的请求-->
+        <url-pattern>/</url-pattern>
+        <!--只匹配后缀是action-->
+        <!--<url-pattern>*.action</url-pattern>-->
+        <!--<url-pattern>*.form</url-pattern>-->
+    </servlet-mapping>
+</web-app>
